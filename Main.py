@@ -5,7 +5,7 @@ import sqlite3
 
 
 root = Tk()
-root.title('Hi')
+root.title('Database')
 root.iconbitmap(r'C:\Users\44786\Desktop\SQL\SQL_DATA\Database_sqlite3\Ico_for_py.ico')
 
 
@@ -20,7 +20,7 @@ conn = sqlite3.connect('Adress_book.db')
 c = conn.cursor()
 
 
-# Create table
+# Create table, uncomment to create a new Table.
 '''
 
 c.execute("""CREATE TABLE adresses(
@@ -31,8 +31,6 @@ c.execute("""CREATE TABLE adresses(
     Postcode text
     )""")
 '''
-
-
 
 # Create submit function 
 
@@ -65,6 +63,11 @@ def submit():
     adress.delete(0, END)
     postcode.delete(0, END)
 
+def query():
+    return
+
+
+
 f_name = Entry(root, width= 30)
 f_name.grid(row=0,column=1, padx=20)
 
@@ -79,8 +82,6 @@ City.grid(row=3,column=1, padx=20)
 
 postcode = Entry(root, width= 30)
 postcode.grid(row=4,column=1, padx=20)
-
-
 
 # Create textbox labels
 f_name_lable = Label(root, text="First name")
@@ -107,6 +108,10 @@ submit_btn .grid(row=6, column=0, columnspan=2, pady=10, padx=10, ipadx=100)
 
 
 
+# Creating query button
+
+Qury_btn = Button(root, text="Show Records", command=query)
+Qury_btn.grid(row=7, column=0, columnspan=2, pady=10, padx=10, ipadx=137)
 
 
 
