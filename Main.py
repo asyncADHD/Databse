@@ -1,3 +1,4 @@
+from sqlite3.dbapi2 import connect
 from tkinter import * 
 from PIL import ImageTk,Image
 import sqlite3
@@ -5,17 +6,38 @@ import sqlite3
 
 root = Tk()
 root.title('Hi')
-root.iconbitmap(r'C:\Users\44786\Desktop\SQL\SQL_DATA\Image_Viewer_app\Ico_for_py.ico')
+root.iconbitmap(r'C:\Users\44786\Desktop\SQL\SQL_DATA\Database_sqlite3\Ico_for_py.ico')
+
+
+
+# Databases
+
+# Create a database or connect to one 
+conn = sqlite3.connect('Adress_book.db')
+
+
+# Create cursor
+c = conn.cursor()
+
+
+# Create table
+c.execute("""CREATE TABLE adresses(
+    first_name text,
+    Last_name text,
+    Adress text,
+    City text,
+    Postcode text
+    )""")
 
 
 
 
 
+# Commit Changes 
+conn.commit()
 
-conn = sqlite3.connect('*')
-
-
-
+# Close changes 
+conn.close()
 
 
 
