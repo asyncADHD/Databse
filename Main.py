@@ -32,6 +32,23 @@ c.execute("""CREATE TABLE adresses(
     )""")
 '''
 
+# Delete Record
+
+def Delete():
+    conn = sqlite3.connect('Adress_book.db')
+    
+    # Create cursor
+    c = conn.cursor()
+    
+    # Deleting a record
+    c.execute("DELETE from adresses WHERE oid = " + delete_box.get())
+    
+    
+    conn.commit()
+    # Close changes 
+    conn.close()
+    
+    
 # Create submit function 
 
 def submit():
@@ -79,10 +96,10 @@ def query():
     # loop through results
     print_records = ''
     for record in records:
-        print_records += str(record[0]) + " " + str(record[1]) + " " + str(record[2]) + "\n"
+        print_records += str(record[0]) + " " + str(record[1]) + " " + str(record[5]) + "\n"
 
     query_label = Label(root, text=print_records)
-    query_label.grid(row=8, column=0, columnspan=2)
+    query_label.grid(row=11, column=0, columnspan=2)
     conn.commit()
 
     # Close changes 
@@ -91,9 +108,9 @@ def query():
     
 
 
-
+# Create Text boxes
 f_name = Entry(root, width= 30)
-f_name.grid(row=0,column=1, padx=20)
+f_name.grid(row=0,column=1, padx=20, pady=(10, 0))
 
 last_name = Entry(root, width= 30)
 last_name.grid(row=1,column=1, padx=20)
@@ -107,9 +124,13 @@ City.grid(row=3,column=1, padx=20)
 postcode = Entry(root, width= 30)
 postcode.grid(row=4,column=1, padx=20)
 
+delete_box = Entry(root, width=30)
+delete_box.grid(row=9, column=1)
+
+
 # Create textbox labels
 f_name_lable = Label(root, text="First name")
-f_name_lable.grid(row=0,column=0)
+f_name_lable.grid(row=0,column=0, pady=(10, 0))
 
 last_name_lable = Label(root, text="Last name")
 last_name_lable.grid(row=1,column=0)
@@ -123,20 +144,23 @@ city_lable.grid(row=3,column=0)
 postcode_lable = Label(root, text="Postcode")
 postcode_lable.grid(row=4,column=0)
 
+delete_box_lable=Label(root, text='DELETE ID ')
+delete_box_lable.grid(row=9, column=0)
 
 # Create submit buttons
 
-
 submit_btn = Button(root, text="Add record to database", command=submit)
-submit_btn .grid(row=6, column=0, columnspan=2, pady=10, padx=10, ipadx=100)
-
-
+submit_btn .grid(row=6, column=0, columnspan=2, pady=1, padx=1, ipadx=40)
 
 # Creating query button
 
 Qury_btn = Button(root, text="Show Records", command=query)
-Qury_btn.grid(row=7, column=0, columnspan=2, pady=10, padx=10, ipadx=137)
+Qury_btn.grid(row=8, column=0, columnspan=2, pady=10, padx=10, ipadx=40)
 
+# Create a DELETE button
+
+DELETE_btn = Button(root, text="Delete record", command=Delete)
+DELETE_btn.grid(row=10, column=0, columnspan=2, pady=10, padx=10, ipadx=40)
 
 
 # Commit Changes 
@@ -144,13 +168,5 @@ conn.commit()
 
 # Close changes 
 conn.close()
-
-
-
-
-
-
-
-
 
 root.mainloop()
