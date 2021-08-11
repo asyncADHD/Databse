@@ -64,7 +64,31 @@ def submit():
     postcode.delete(0, END)
 
 def query():
-    return
+    conn = sqlite3.connect('Adress_book.db')
+    
+    # Create cursor
+    c = conn.cursor()
+
+
+    # Query the Database 
+    c.execute("SELECT *, oid FROM adresses")
+    records = c.fetchall()
+    # (DEBUGGING USE)
+    # print(records)
+
+    # loop through results
+    print_records = ''
+    for record in records:
+        print_records += str(record[0]) + " " + str(record[1]) + " " + str(record[2]) + "\n"
+
+    query_label = Label(root, text=print_records)
+    query_label.grid(row=8, column=0, columnspan=2)
+    conn.commit()
+
+    # Close changes 
+    conn.close()
+    
+    
 
 
 
